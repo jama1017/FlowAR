@@ -5888,6 +5888,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3083131043045149278, guid: 5e095ebd1c43443f787c66d213c95036,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3083131043045149276, guid: 5e095ebd1c43443f787c66d213c95036, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5e095ebd1c43443f787c66d213c95036, type: 3}
@@ -7712,7 +7717,7 @@ MonoBehaviour:
   m_ARSupport: {fileID: 678918255}
   m_RedScreen: {fileID: 0}
   m_planeTransparentMaterial: {fileID: 0}
-  placePrefab: {fileID: 3596028150467614126, guid: 6886d08497b573648b8195cfdd979096,
+  placePrefab: {fileID: 8876416911651873818, guid: 2a1e0ba314afe4fb48cc467bd0bce840,
     type: 3}
   offset: 0.05
 --- !u!4 &1709130108
