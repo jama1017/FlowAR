@@ -7689,37 +7689,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1709130108}
-  - component: {fileID: 1709130107}
+  - component: {fileID: 1709130109}
   m_Layer: 0
-  m_Name: DemoController
+  m_Name: FlowController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1709130107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709130106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e638d5d351985a4792e43a26169cb11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstPersonCamera: {fileID: 501250634}
-  m_UnityPlaneInteractionLayer: 11
-  m_EnableARPlaneInteraction: 1
-  m_EnableUnityPlaneInteraction: 0
-  m_EnableHandDistanceWarning: 0
-  m_ARSupport: {fileID: 678918255}
-  m_RedScreen: {fileID: 0}
-  m_planeTransparentMaterial: {fileID: 0}
-  placePrefab: {fileID: 8876416911651873818, guid: 2a1e0ba314afe4fb48cc467bd0bce840,
-    type: 3}
-  offset: 0.05
 --- !u!4 &1709130108
 Transform:
   m_ObjectHideFlags: 0
@@ -7734,6 +7711,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1709130109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709130106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca9de97de0bf948dba4333159f57bd97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstPersonCamera: {fileID: 501250634}
+  m_UnityPlaneInteractionLayer: 11
+  m_EnableARPlaneInteraction: 1
+  m_EnableUnityPlaneInteraction: 0
+  m_EnableHandDistanceWarning: 0
+  m_ARSupport: {fileID: 678918255}
+  m_RedScreen: {fileID: 0}
+  m_planeTransparentMaterial: {fileID: 0}
+  placePrefab: {fileID: 8876416911651873818, guid: 2a1e0ba314afe4fb48cc467bd0bce840,
+    type: 3}
+  offset: 0.0002
 --- !u!1 &1716749453
 GameObject:
   m_ObjectHideFlags: 0
