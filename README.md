@@ -1,1 +1,1 @@
-**Adaptive User Focus Driven Selection Method for Direct Hand Manipulation**
+**FlowAR - Flow-based Prototyping Tool for Augmented Reality**
