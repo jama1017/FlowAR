@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Jiaju/Jiaju.unity
     guid: a6ece71b2fa394b0f9e4022709238fd1
   - enabled: 1
+    path: Assets/Jiaju/Paint.unity
+    guid: 54e419f35d2c24726ac4609a7cc9e7e9
+  - enabled: 0
     path: Assets/Jiaju/Place.unity
     guid: 5ea31ab0e46e747afb2e454c03b24280
   m_configObjects: {}

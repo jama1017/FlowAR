@@ -74,3 +74,5 @@ Assets/Plugins/AdjustPivot.meta
 Assets/Plugins/AdjustPivot/
 # mono crash
 mono_crash.*
+Assets/Jiaju/Models/
+Assets/Jiaju/Models.meta
