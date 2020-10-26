@@ -15,6 +15,7 @@ public class FlowPaintController : PortalbleGeneralController
     private Vector3 _paintBall_prev_pos = Vector3.zero;
     private float _fac = 0.12f * 2f;
     private List<Transform> _emojis = new List<Transform>();
+    private Queue<Transform> _emojiWindow = new Queue<Transform>();
 
     public Transform m_emoji_1;
     public Transform m_emoji_2;
@@ -86,12 +87,20 @@ public class FlowPaintController : PortalbleGeneralController
                                 break;
 
                             case 1: // draw emojis
-                                if (detalDistance > 0.006f)
+                                if (detalDistance > 0.002f)
                                 {
                                     int id = Random.Range(0, _emojis.Count);
                                     Transform emoji = Instantiate(_emojis[id], _paintBall_prev_pos, Quaternion.identity);
                                     emoji.transform.LookAt(Camera.main.transform.position);
-                                }
+
+                                    if(_emojiWindow.Count > 20)
+                                    {
+                                        Transform fall = _emojiWindow.Dequeue();
+                                        fall.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                                    }
+
+                                    _emojiWindow.Enqueue(emoji);
+                                 }
                                 break;
                         }
                     break;
