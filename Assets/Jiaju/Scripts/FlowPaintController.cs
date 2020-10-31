@@ -14,16 +14,23 @@ public class FlowPaintController : PortalbleGeneralController
     private Vector3 _paintBall_pos = Vector3.zero;
     private Vector3 _paintBall_prev_pos = Vector3.zero;
     private float _fac = 0.12f * 2f;
-    private List<Transform> _emojis = new List<Transform>();
+
+    public List<Transform> _emojis = new List<Transform>();
     private Queue<Transform> _emojiWindow = new Queue<Transform>();
 
-    public Transform m_emoji_1;
-    public Transform m_emoji_2;
-    public Transform m_emoji_3;
-    public Transform m_emoji_4;
-    public Transform m_emoji_5;
+    //public Transform m_emoji_1;
+    //public Transform m_emoji_2;
+    //public Transform m_emoji_3;
+    //public Transform m_emoji_4;
+    //public Transform m_emoji_5;
 
     public int mode;
+
+    private int _id = 0;
+    private int _counter = 0;
+
+    private Queue<Vector3> _burstPoses = new Queue<Vector3>();
+    private bool _isBursting = false;
 
 
     protected override void Start()
@@ -31,11 +38,7 @@ public class FlowPaintController : PortalbleGeneralController
         base.Start();
         m_paintBall.gameObject.SetActive(false);
 
-        _emojis.Add(m_emoji_1);
-        _emojis.Add(m_emoji_2);
-        _emojis.Add(m_emoji_3);
-        _emojis.Add(m_emoji_4);
-        _emojis.Add(m_emoji_5);
+        _id = Random.Range(0, _emojis.Count);
     }
 
     protected override void Update()
@@ -43,6 +46,20 @@ public class FlowPaintController : PortalbleGeneralController
         base.Update();
 
         DrawingHelper();
+
+        if (_isBursting)
+        {
+            IEnumerator<Vector3> ienum = _burstPoses.GetEnumerator();
+
+            while (ienum.MoveNext())
+            {
+                Rigidbody rb = Instantiate(_emojis[Random.Range(0, _emojis.Count)], ienum.Current, Quaternion.identity).GetComponent<Rigidbody>();
+                rb.gameObject.transform.LookAt(Camera.main.transform.position);
+                rb.isKinematic = false;
+                rb.AddForce(new Vector3(0, 30, 0));
+            }
+
+        }
     }
 
     private void DrawingHelper()
@@ -87,13 +104,21 @@ public class FlowPaintController : PortalbleGeneralController
                                 break;
 
                             case 1: // draw emojis
-                                if (detalDistance > 0.002f)
+                                if (detalDistance > 0.0015f)
                                 {
-                                    int id = Random.Range(0, _emojis.Count);
-                                    Transform emoji = Instantiate(_emojis[id], _paintBall_prev_pos, Quaternion.identity);
+                                    Transform emoji = Instantiate(_emojis[_id], _paintBall_prev_pos, Quaternion.identity);
                                     emoji.transform.LookAt(Camera.main.transform.position);
 
-                                    if(_emojiWindow.Count > 20)
+                                    _counter++;
+
+                                    if (_counter > Random.Range(3, 10))
+                                    {
+                                        _id = Random.Range(0, _emojis.Count);
+                                        _counter = 0;
+                                    }
+
+
+                                    if (_emojiWindow.Count > 20)
                                     {
                                         Transform fall = _emojiWindow.Dequeue();
                                         fall.gameObject.GetComponent<Rigidbody>().isKinematic = false;
@@ -111,6 +136,20 @@ public class FlowPaintController : PortalbleGeneralController
 
             }
         }
+    }
+
+    public override void OnARPlaneHit(PortalbleHitResult hit)
+    {
+        if (mode == 0) return;
+
+        base.OnARPlaneHit(hit);
+
+        if(_burstPoses.Count > 2)
+        {
+            _burstPoses.Dequeue();
+        }
+        _burstPoses.Enqueue(hit.Pose.position);
+        _isBursting = true;
     }
 
     //public override void OnARPlaneHit(PortalbleHitResult hit)
