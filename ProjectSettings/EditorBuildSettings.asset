@@ -20,4 +20,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Jiaju/Place.unity
     guid: 5ea31ab0e46e747afb2e454c03b24280
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.arkit.PlayerSettings: {fileID: 11400000, guid: dc171aa58640c49d7a28a0a90fe6a5d6,
+      type: 2}
