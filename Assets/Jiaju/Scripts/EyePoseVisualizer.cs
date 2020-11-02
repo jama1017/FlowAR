@@ -27,7 +27,9 @@ namespace UnityEngine.XR.ARFoundation.Samples
             set => m_EyePrefab = value;
         }
 
-        GameObject m_LeftEyeGameObject;
+        GameObject m_PaintBallGameObject;
+        private Vector3 _paintBall_pos = Vector3.zero;
+        private Vector3 _paintBall_prev_pos = Vector3.zero;
 
         ARFace m_Face;
         XRFaceSubsystem m_FaceSubsystem;
@@ -45,19 +47,19 @@ namespace UnityEngine.XR.ARFoundation.Samples
                 ballPos = m_Face.vertices[0];
             }
 
-            if (m_LeftEyeGameObject == null )
+            if (m_PaintBallGameObject == null )
             {
-                Debug.Log("Object Created at: " + transform.TransformPoint(ballPos));
-                m_LeftEyeGameObject = Instantiate(m_EyePrefab, transform.TransformPoint(ballPos), Quaternion.identity);
-                m_LeftEyeGameObject.SetActive(false);
+                m_PaintBallGameObject = Instantiate(m_EyePrefab, transform.TransformPoint(ballPos), Quaternion.identity);
+                m_PaintBallGameObject.SetActive(false);
+                _paintBall_pos = m_PaintBallGameObject.transform.position;
             }
         }
 
         void SetVisible(bool visible)
         {
-            if (m_LeftEyeGameObject != null)
+            if (m_PaintBallGameObject != null)
             {
-                m_LeftEyeGameObject.SetActive(visible);
+                m_PaintBallGameObject.SetActive(visible);
             }
         }
 
@@ -91,10 +93,22 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
         void Update()
         {
-            //Vector3 ballPos = new Vector3(0f, 0f, 0f);
             if (m_Face.vertices.IsCreated)
             {
-                m_LeftEyeGameObject.transform.position = transform.TransformPoint(m_Face.vertices[0]);
+                if(m_PaintBallGameObject.activeSelf)
+                {
+                    _paintBall_prev_pos = _paintBall_pos;
+
+                    m_PaintBallGameObject.transform.position = transform.TransformPoint(m_Face.vertices[0]);
+                    _paintBall_pos = m_PaintBallGameObject.transform.position;
+                    //m_PaintBallGameObject.transform.forward = transform.TransformVector(m_Face.normals[0]);
+
+                    if (Vector3.Distance(_paintBall_prev_pos, _paintBall_pos) > 0.002f)
+                    {
+                        Instantiate(m_EyePrefab, _paintBall_prev_pos, Quaternion.identity);
+                    }
+                }
+                
             }
         }
     }
