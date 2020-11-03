@@ -5918,6 +5918,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3083131043045149279, guid: 5e095ebd1c43443f787c66d213c95036,
+        type: 3}
+      propertyPath: m_DetectionMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3083131043045149277, guid: 5e095ebd1c43443f787c66d213c95036,
         type: 3}
       propertyPath: m_Enabled
@@ -7788,7 +7793,7 @@ MonoBehaviour:
   - {fileID: 1942984010464717470, guid: 59b6b56d8f89a42a2964b928fab98152, type: 3}
   - {fileID: 1378532420652381900, guid: df68fca98a348437ebed4f7fbdeff159, type: 3}
   - {fileID: 2891594546070320426, guid: 80ba6a0365a6d4f6bb6821283dab840b, type: 3}
-  mode: 0
+  mode: 1
 --- !u!4 &1709130108
 Transform:
   m_ObjectHideFlags: 0

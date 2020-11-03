@@ -13,7 +13,7 @@ public class FlowPaintController : PortalbleGeneralController
     public Transform m_paintBall;
     private Vector3 _paintBall_pos = Vector3.zero;
     private Vector3 _paintBall_prev_pos = Vector3.zero;
-    private float _fac = 0.12f * 2f;
+    private float _fac = 0.20f * 2f;
 
     public List<Transform> _emojis = new List<Transform>();
     private Queue<Transform> _emojiWindow = new Queue<Transform>();
@@ -45,7 +45,7 @@ public class FlowPaintController : PortalbleGeneralController
     {
         base.Update();
 
-        DrawingHelper();
+        //DrawingHelper();
 
         if (_isBursting)
         {
@@ -118,7 +118,7 @@ public class FlowPaintController : PortalbleGeneralController
                                     }
 
 
-                                    if (_emojiWindow.Count > 20)
+                                    if (_emojiWindow.Count > 200000)
                                     {
                                         Transform fall = _emojiWindow.Dequeue();
                                         fall.gameObject.GetComponent<Rigidbody>().isKinematic = false;
