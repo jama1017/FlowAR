@@ -38,6 +38,10 @@ namespace UnityEngine.XR.ARFoundation.Samples
         private int _counter = 0;
         private bool _canPaint = false;
 
+        public int mode;
+
+        private float _ballLocalScale = 0.06f;
+
 
         ARFace m_Face;
         XRFaceSubsystem m_FaceSubsystem;
@@ -58,6 +62,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
             if (m_PaintBallGameObject == null )
             {
                 m_PaintBallGameObject = Instantiate(m_EyePrefab, transform.TransformPoint(ballPos), Quaternion.identity);
+                m_PaintBallGameObject.transform.localScale = new Vector3(_ballLocalScale, _ballLocalScale, _ballLocalScale);
                 m_PaintBallGameObject.SetActive(false);
                 _paintBall_pos = m_PaintBallGameObject.transform.position;
             }
@@ -67,7 +72,14 @@ namespace UnityEngine.XR.ARFoundation.Samples
         {
             if (m_PaintBallGameObject != null)
             {
-                m_PaintBallGameObject.SetActive(false);
+                if (mode == 0)
+                {
+                    m_PaintBallGameObject.SetActive(visible);
+                }
+                else if (mode == 1)
+                {
+                    m_PaintBallGameObject.SetActive(false);
+                }
             }
             _canPaint = visible;
         }
@@ -114,28 +126,35 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
                     if (Vector3.Distance(_paintBall_prev_pos, _paintBall_pos) > 0.0015f)
                     {
-                        //Instantiate(m_EyePrefab, _paintBall_prev_pos, Quaternion.identity);
-                        Transform emoji = Instantiate(_emojis[_id], _paintBall_prev_pos, Quaternion.identity);
-                        emoji.transform.LookAt(Camera.main.transform.position);
-                        emoji.transform.localScale = new Vector3(0.03f, 0.03f, 0.03f);
-
-                        _counter++;
-
-                        if (_counter > Random.Range(3, 10))
+                        if (mode == 0)
                         {
-                            _id = Random.Range(0, _emojis.Count);
-                            _counter = 0;
+                            GameObject ball = Instantiate(m_EyePrefab, _paintBall_prev_pos, Quaternion.identity);
+                            ball.transform.localScale = new Vector3(_ballLocalScale, _ballLocalScale, _ballLocalScale);
                         }
-
-
-                        if (_emojiWindow.Count > 40)
+                        else if (mode == 1)
                         {
-                            Transform fall = _emojiWindow.Dequeue();
-                            fall.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                            Transform emoji = Instantiate(_emojis[_id], _paintBall_prev_pos, Quaternion.identity);
+                            emoji.transform.LookAt(Camera.main.transform.position);
+                            emoji.transform.localScale = new Vector3(0.03f, 0.03f, 0.03f);
+
+                            _counter++;
+
+                            if (_counter > Random.Range(3, 10))
+                            {
+                                _id = Random.Range(0, _emojis.Count);
+                                _counter = 0;
+                            }
+
+
+                            if (_emojiWindow.Count > 40)
+                            {
+                                Transform fall = _emojiWindow.Dequeue();
+                                fall.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                            }
+
+                            _emojiWindow.Enqueue(emoji);
                         }
-
-                        _emojiWindow.Enqueue(emoji);
-
+                        
                     }
                 }
                 
